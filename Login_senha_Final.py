@@ -1,39 +1,57 @@
-cadastro=[0]*10
-senha=[0]*10
-tamca=len(cadastro)
-tent=0
+cadastro = [0] * 5
+senha = [0] * 5
+tam = len(cadastro)
 
 operacao = 0
+
 while operacao != 4:
     print("Selecione a operação:\n"
           "1. Cadastro.\n"
           "2. Mostrar.\n"
           "3. Login.\n"
           "4. Sair.\n")
-    operacao = int(input("Escolha um numero: "))
+    operacao = int(input("Escolha um número: "))
+#cadastro de usuarios
     if operacao == 1:
-        for a in range (tamca):
-            cadastro[a]=input("Digite seu nome de Login: ")
-            senha[a]=input("Digite seu nome de login: ")
-#limite para a lista
-            if a<tamca-1:
-                continuar = input("Deseja cadastrar outro usuário? (s/n): ")
-                if continuar != 's' or 'S':
-                    break
+        for a in range (tam):
+            if cadastro[a] == 0:
+                cadastro[a]=input("Digite seu nome de Login: ")
+                senha[a]=input("Digite sua senha: ")
             else:
-                print("Limite de cadastro atingido.")
-    if operacao == 2:
-        for b in range (tamca):
-            print(f"o usuario na posição {b}-{cadastro[b]} \n"
-                  f"senha:{senha[b]}")
-    if operacao == 3:
-        for c in range(tamca):
-            cadastro[c]=input("Digite seu nome de Login: ")
-            senha[c]=input("Digite seu nome de login: ")
-            if cadastro[c]==cadastro:
-                cadastro[c]==tent
+                print("limite de cadastros no maximo")
+                break
+#mostrar cadastros em lista
+    elif operacao == 2:
+        for b in range(tam):
+            if cadastro[b] != 0:
+                print(f"Usuário na posição {b} - Nome: {cadastro[b]} \n"
+                      f"Senha: {senha[b]}")
+    elif operacao==3:
 
-    if operacao == 4:
+        nome = input("CADASTRO:")
+        password = input("SENHA:")
+        for c in range(tam):
+            if cadastro[c] == nome and senha[c] == password:
+                tentativa = 0
+
+                while tentativa < 3 and senha[c] != password:
+                    tentativa += 1
+                    if tentativa < 3:
+                        print("Senha Incorreta. Tente Novamente!!!")
+                        password = input(f"{3 - tentativa} tentativas restantes - Informe a senha: ")
+                if senha[c] == password:
+                    print("Senha Correta.\n"
+                          "Acesso Autorizado")
+                    break
+                else:
+                    print("Número máximo de tentativas atingido. Essa conta será bloqueada!!!")
+
+            else:
+                print("Usuário não cadastrado.")
+                break
+
+#Fechar programa
+    elif operacao == 4:
         print("Obrigado por usar o Programa")
     else:
         print("Opção inválida, tente novamente.")
